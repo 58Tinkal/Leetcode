@@ -24,7 +24,7 @@ public:
             openBracket.pop();
             unlocked.pop();
         }
-        if (!openBracket.empty() ) {
+        if (!openBracket.empty() || unlocked.size() % 2 == 1 ) {
             return false;
         }
         return true;
