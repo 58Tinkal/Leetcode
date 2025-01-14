@@ -1,10 +1,5 @@
 class Solution {
 public:
-    int cnt(vector<int>&a){
-          int c = 0;
-          for(auto it:a) if(it == 2) c++;
-          return c;
-    }
     vector<int> findThePrefixCommonArray(vector<int>& A, vector<int>& B) {
         vector<int>ans, freq(51,0);
         int n = A.size();
@@ -16,7 +11,6 @@ public:
            if(freq[B[i]] == 2) c++;
             ans.push_back(c);
         }
-        for(auto it:ans)  cout<<it<<' ';
         return ans;
     }
 };
