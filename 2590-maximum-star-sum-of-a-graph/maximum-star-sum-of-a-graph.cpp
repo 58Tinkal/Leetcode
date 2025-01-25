@@ -4,18 +4,13 @@ public:
         if (edges.size() == 0) {
             return *max_element(vals.begin(), vals.end());
         }
-        
         int ans = INT_MIN;
         int n = vals.size();
         vector<vector<int>> adj(n);
-
-        
         for (auto it : edges) {
             adj[it[0]].push_back(it[1]);
             adj[it[1]].push_back(it[0]);
         }
-
-     
         for (int i = 0; i < n; i++) {
             vector<int> temp;
             for (auto it : adj[i]) {
@@ -31,7 +26,6 @@ public:
             }
             ans = max(ans, a);
         }
-
         return ans;
     }
 };
