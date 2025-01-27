@@ -41,7 +41,6 @@ public:
             for (int i = 0; i < S.size(); i++) {
                 char original = S[i];
 
-                // Increment the digit
                 if (S[i] < '9') {
                     S[i]++;
                     int num = stoi(S);
@@ -51,7 +50,6 @@ public:
                     S[i] = original;
                 }
 
-                // Decrement the digit
                 if (S[i] > '0') {
                     S[i]--;
                     int num = stoi(S);
