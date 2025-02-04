@@ -1,49 +1,53 @@
 class Solution {
 public:
-    void bfs(vector<vector<int>>&adj,vector<int>&ans,int node){
+    void bfs(vector<vector<int>>& adj, vector<int>& flowerType, int startNode) {
         queue<int> q;
-        q.push(node);
-        ans[node] = 1;
+        q.push(startNode);
+        flowerType[startNode] = 1;
+
         while (!q.empty()) {
             int node = q.front();
             q.pop();
 
-            vector<int> col(4, 0);
-            for (auto it : adj[node]) {
-                if (ans[it] > 0) {
-                    int c = ans[it];
-                    col[c-1] = 1;
+            bool usedColors[5] = {};
+
+            for (int neighbor : adj[node]) {
+                if (flowerType[neighbor] > 0) {
+                    usedColors[flowerType[neighbor]] = true;
                 }
             }
-            for (int i = 0; i < 4; i++) {
-                if (col[i] == 0) {
-                    ans[node] = i + 1;
+
+            for (int i = 1; i <= 4; i++) {
+                if (!usedColors[i]) {
+                    flowerType[node] = i;
                     break;
                 }
             }
-            for (auto it : adj[node]) {
-                if (ans[it] == 0) {
-                    q.push(it);
+
+            for (int neighbor : adj[node]) {
+                if (flowerType[neighbor] == 0) {
+                    flowerType[neighbor] = -1; 
+                    q.push(neighbor);
                 }
             }
         }
     }
+
     vector<int> gardenNoAdj(int n, vector<vector<int>>& paths) {
-        vector<int> ans(n + 1);
         vector<vector<int>> adj(n + 1);
-        for (auto it : paths) {
-            adj[it[0]].push_back(it[1]);
-            adj[it[1]].push_back(it[0]);
+        for (const auto& path : paths) {
+            adj[path[0]].emplace_back(path[1]);
+            adj[path[1]].emplace_back(path[0]);
         }
-       for(int i=1;i<=n;i++){
-        if(ans[i]==0){
-            bfs(adj,ans,i);
+
+        vector<int> flowerType(n + 1, 0); 
+
+        for (int i = 1; i <= n; i++) {
+            if (flowerType[i] == 0) {
+                bfs(adj, flowerType, i);
+            }
         }
-       }
-        vector<int>res;
-        for(int i=1;i<=n;i++){
-            res.push_back(ans[i]);
-        }
-        return res;
+
+        return vector<int>(flowerType.begin() + 1, flowerType.end());
     }
 };
