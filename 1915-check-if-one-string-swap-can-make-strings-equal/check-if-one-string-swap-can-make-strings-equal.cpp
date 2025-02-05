@@ -14,17 +14,11 @@ public:
 
             if (s1Char != s2Char) {
                 numDiffs++;
-                // numDiffs is more than 2, one string swap will not make two
-                // strings equal
                 if (numDiffs > 2) return false;
             }
-
-            // increment frequencies
             s1FrequencyMap[s1Char - 'a']++;
             s2FrequencyMap[s2Char - 'a']++;
         }
-
-        // check if frequencies are equal
         for (int i = 0; i < 26; i++) {
             if (s1FrequencyMap[i] != s2FrequencyMap[i]) return false;
         }
