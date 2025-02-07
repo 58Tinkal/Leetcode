@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> queryResults(int limit, vector<vector<int>>& queries) {
-        map<int, int> m, s;
+        unordered_map<int, int> m, s;
         vector<int> ans;
         for (auto it : queries) {
             if (m[it[0]] > 0) {
