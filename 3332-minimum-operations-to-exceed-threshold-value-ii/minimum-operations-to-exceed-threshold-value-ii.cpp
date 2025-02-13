@@ -6,7 +6,7 @@ public:
         int ans = 0;
 
         while (pq.top() < k) {
-            if (pq.size() == 1 )
+            if (pq.size() == 1 || pq.top() >= k)
                 return ans;
 
             long long a = pq.top();
