@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void solve(int idx,int & ans, vector<int>&a){
+    void solve(int idx,int & ans, vector<int>a){
         if(idx == a.size()){
             ans++;
             return;
@@ -10,7 +10,7 @@ public:
             if(a[idx]%(idx+1)==0 || (idx+1)%a[idx] == 0){
                 solve(idx+1,ans,a);
             }
-            swap(a[idx],a[i]);
+           // swap(a[idx],a[i]);
         }
     }
     int countArrangement(int n) {
