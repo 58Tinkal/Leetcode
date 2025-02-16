@@ -12,27 +12,27 @@
  */
 class Solution {
 public:
-    string s;
-    void solve(TreeNode* root, string str) {
-
+    void solve(TreeNode* root, string& s, string& temp) {
         if (!root)
             return;
-        str = char(root->val + 'a') + str;
-
-        if (root->left == NULL && root->right == NULL) {
-            if (s == "" || s > str) {
-                s = str;
+        temp += 'a' + root->val;
+        if (!root->left && !root->right) {
+            reverse(temp.begin(), temp.end());
+            if (s == "" || s > temp) {
+                s = temp;
             }
+            reverse(temp.begin(), temp.end());
         }
-
         if (root->left)
-            solve(root->left, str);
+            solve(root->left, s, temp);
         if (root->right)
-            solve(root->right, str);
+            solve(root->right, s, temp);
+        temp.pop_back();
     }
-
     string smallestFromLeaf(TreeNode* root) {
-        solve(root, "");
+        string s;
+        string temp = "";
+        solve(root, s, temp);
         return s;
     }
 };
