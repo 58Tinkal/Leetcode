@@ -1,13 +1,24 @@
 class Solution {
 public:
-    int punishmentNumber(int n) {
-        vector<int> arr = {1,9,10,36,45,55,82,91,99,100,235,297,369,370,379,414,
-                           657,675,703,756,792,909,918,945,964,990,991,999,1000};
-        int sum = 0;
-        for(int i = 0; i < arr.size(); i++) {
-            if(arr[i] <= n) sum += arr[i] * arr[i];
-            else break;
+    bool isValid(string &s,int pos,int sum,int &val){
+        if(pos >= s.size()) return sum == val;
+
+        for(int i=0;i+pos<s.size();i++){
+            int curr_val = stoi(s.substr(pos,i+1));
+            if(isValid(s,i+pos+1,sum+curr_val,val)){
+                return true;
+            }
         }
-        return sum;
+        return false;
+    }
+    int punishmentNumber(int n) {
+        int ans = 1;
+        for(int i=2;i<=n;i++){
+            string s = to_string(i*i);
+            if(isValid(s,0,0,i)){
+                ans += i*i;
+            }
+        }
+        return ans;
     }
 };
