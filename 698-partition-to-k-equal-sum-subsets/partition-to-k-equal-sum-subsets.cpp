@@ -12,7 +12,7 @@ public:
             if(solve(i+1,nums,k,s+nums[i])) return true;
             vis[i] = false;
           //  s-=nums[i];
-            if (s == 0) return false;
+           if (s == 0) return false;
         }
         return false;
     }
