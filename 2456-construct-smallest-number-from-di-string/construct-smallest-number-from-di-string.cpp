@@ -1,8 +1,7 @@
 class Solution {
 public:
     string ans = "";
-    vector<bool> vis; // To track used digits
-
+    vector<bool> vis; 
     void solve(string &p, string s, int idx) {
         if (idx == p.size()) { 
             if (ans.empty() || s < ans) ans = s;
@@ -32,7 +31,7 @@ public:
 
     string smallestNumber(string p) {
         ans = "";
-        vis.assign(10, false); 
+        vis = vector<bool>(10,false);
         for (int d = 1; d <= 9; d++) { 
             vis[d] = true;
             solve(p, string(1, char(d + '0')), 0);
