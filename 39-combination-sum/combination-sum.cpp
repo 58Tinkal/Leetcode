@@ -15,6 +15,7 @@ public:
         }
     }
     vector<vector<int>> combinationSum(vector<int>& c, int t) {
+        sort(c.begin(),c.end());
         vector<int>temp;
         solve(c,t,0,temp,0);
         return ans;
