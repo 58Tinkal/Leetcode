@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<string> ans;
     
-    void solve(int idx, int n, string &s, char last) {
+    void solve(int idx, int n, string s, char last) {
         if (idx == n) {
             ans.push_back(s);
             return;
@@ -18,8 +18,7 @@ public:
     }
 
     string getHappyString(int n, int k) {
-        string s;
-        solve(0, n, s, '*');  
+        solve(0, n, "", '*');  
         
         if (k > ans.size()) return "";  
         
