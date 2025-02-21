@@ -13,6 +13,7 @@
 class FindElements {
 public:
     TreeNode* recoveredRoot;
+    unordered_set<int>s;
     FindElements(TreeNode* root) {
         recoveredRoot = root;
         if (root) {
@@ -24,6 +25,7 @@ public:
     void solve(TreeNode* root) {
         if (!root)
             return;
+            s.insert(root->val);
         if (root->left) {
             root->left->val = 2 * root->val + 1;
             solve(root->left);
@@ -47,9 +49,10 @@ public:
         return f1 || f2;
     }
     bool find(int target) {
-        if (findE(recoveredRoot, target))
-            return true;
-        return false;
+        // if (findE(recoveredRoot, target))
+        //     return true;
+        // return false;
+        return s.count(target);
     }
 };
 
