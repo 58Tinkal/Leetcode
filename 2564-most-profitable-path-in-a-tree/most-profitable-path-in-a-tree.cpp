@@ -39,7 +39,7 @@ public:
         }
 
         vector<int> parent(n, -1), dist(n, -1);
-        findDistAndPar(0, 0, 0, parent, dist, adj);
+        findDistAndPar(0, -1, 0, parent, dist, adj);
 
         // Debugging outputs
         for (int i = 0; i < n; i++)
