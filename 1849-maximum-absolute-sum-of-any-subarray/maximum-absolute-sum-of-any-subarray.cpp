@@ -1,20 +1,14 @@
 class Solution {
 public:
     int maxAbsoluteSum(vector<int>& nums) {
-        int mx = INT_MIN;
-        int mn = INT_MAX;
+        int mx = 0;
+        int mn = 0;
         int s = 0;
-        for(int i=0;i<nums.size();i++){
-            s += nums[i];
-            mx = max(mx,s);
-            if(s<0) s = 0;
+        for(auto &it:nums){
+            s += it;
+            if(mx<s) mx = s;
+            if(mn>s) mn = s;
         }
-        s = 0;
-         for(int i=0;i<nums.size();i++){
-            s += nums[i];
-            mn = min(mn,s);
-            if(s>0) s = 0;
-        }
-        return max(abs(mx),abs(mn));
+        return mx-mn;
     }
 };
