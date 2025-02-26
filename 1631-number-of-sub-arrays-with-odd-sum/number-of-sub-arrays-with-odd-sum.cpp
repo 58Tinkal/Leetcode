@@ -12,7 +12,7 @@ public:
                 result = (result + even) % MOD;
                 odd++;
             } else {
-                result = (result + odd) % MOD;
+                result = (result + odd ) % MOD;
                 even++;
             }
         }
