@@ -3,6 +3,7 @@ public:
      vector<vector<int>>dp;
      int n;
      int solve(int i,int j,vector<int>&nums){
+            if(i>n) return 0;
             if(i == n-1)  return max(nums[i],nums[j]);
             if(i==n) return nums[j];
             if(dp[i][j] != -1)  return dp[i][j];
