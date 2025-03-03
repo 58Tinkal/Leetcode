@@ -1,16 +1,15 @@
 class Solution {
 public:
     vector<int> pivotArray(vector<int>& nums, int pivot) {
-        vector<int>s,g;
-        int n = nums.size();
+        vector<int>s;
+        int c = 0;
         for(auto &it:nums){
-            if(it<pivot) s.push_back(it);
-            if(it>pivot) g.push_back(it);
+            if(it < pivot) s.push_back(it);
+            if(it == pivot) c++;
         }
-        int x = n - (s.size() + g.size());
-        while(x--) s.push_back(pivot);
-        for(auto &it:g){
-            s.push_back(it);
+        while(c--) s.push_back(pivot);
+        for(auto &it:nums){
+           if(it>pivot) s.push_back(it);
         }
         return s;
     }
