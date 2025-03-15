@@ -2,7 +2,7 @@
 
 class Spreadsheet {
 private:
-    int arr[26][1005]; // Assuming max 100 rows
+    int arr[26][1005]; 
 
 public:
     Spreadsheet(int rows) { 
@@ -12,8 +12,8 @@ public:
     }
 
     void setCell(string cell, int value) {
-        int r = cell[0] - 'A';  // Convert 'A' to index 0
-        int c = stoi(cell.substr(1)) - 1; // Convert column (1-based) to 0-based index
+        int r = cell[0] - 'A';  
+        int c = stoi(cell.substr(1)) - 1;
         arr[r][c] = value;
     }
 
@@ -41,7 +41,7 @@ public:
             x = stoi(s);
         }
 
-        i++; // Move past '+'
+        i++; 
         s = "";
         while (i < f.size()) {
             s += f[i];
