@@ -47,6 +47,6 @@ public:
         memset(dp, -1, sizeof(dp));
         int y = solve(0, 1, 0, 0, high);
 
-        return (y - x + mod)%mod;
+        return (y - x + mod) % mod;
     }
 };
