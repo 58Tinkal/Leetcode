@@ -14,9 +14,6 @@ class Solution {
 public:
     int countDays(int days, vector<vector<int>>& m) {
         sort(m.begin(), m.end());
-        for (int i = 0; i < m.size(); i++) {
-            cout << m[i][0] << ' ' << m[i][1] << endl;
-        }
         int ans = 0;
         int n = m.size();
         if (m[0][0] > 1)
