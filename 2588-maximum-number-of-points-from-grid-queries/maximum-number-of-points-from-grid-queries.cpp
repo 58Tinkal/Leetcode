@@ -1,3 +1,11 @@
+#include <ranges>
+
+static auto init = []() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  return nullptr;
+}();
+
 class Solution {
 public:
     bool isValid(int r, int c, int n, int m) {
@@ -51,7 +59,7 @@ public:
             }
             mp[query_val] = cnt;
         }
-        
+
         vector<int> ans(qu.size());
         for (int i = 0; i < qu.size(); i++) {
             ans[i] = mp[qu[i]];
