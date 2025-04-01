@@ -11,7 +11,8 @@ public:
             if (nums[left] + nums[right] > target) {
                 right--;
             } else {
-                res = (res + pows[right - left++]) % mod;
+                res = (res + pows[right - left]) % mod;
+                left++;
             }
         }
         return res;
