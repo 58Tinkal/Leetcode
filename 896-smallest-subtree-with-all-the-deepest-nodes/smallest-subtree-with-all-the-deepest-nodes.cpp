@@ -12,40 +12,23 @@
  */
 class Solution {
 public:
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if (root == NULL || p == root || q == root)
-            return root;
-        TreeNode* left = lowestCommonAncestor(root->left, p, q);
-        TreeNode* right = lowestCommonAncestor(root->right, p, q);
-        if (left == NULL) {
-            return right;
-        } else if (right == NULL) {
-            return left;
-        } else {
-            return root;
-        }
+#define pni pair<TreeNode*, int>
+
+    pni findLCA(TreeNode* curr) {
+        if (!curr)
+            return make_pair(nullptr, 0);
+
+        pni left = findLCA(curr->left);
+        pni right = findLCA(curr->right);
+
+        if (left.second == right.second)
+            return make_pair(curr, 1 + left.second);
+        else if (left.second > right.second)
+            return make_pair(left.first, 1 + left.second);
+        return make_pair(right.first, 1 + right.second);
     }
     TreeNode* subtreeWithAllDeepest(TreeNode* root) {
-        queue<TreeNode*> q;
-        TreeNode* first = nullptr;
-        TreeNode* last = nullptr;
-        q.push(root);
-        while (!q.empty()) {
-            int s = q.size();
-            vector<TreeNode*> v;
-            for (int i = 0; i < s; i++) {
-                auto it = q.front();
-                q.pop();
-                v.push_back(it);
-                if (it->left)
-                    q.push(it->left);
-                if (it->right)
-                    q.push(it->right);
-            }
-            s = v.size();
-            first = v[0];
-            last = v[s - 1];
-        }
-        return lowestCommonAncestor(root, first, last);
+        pni res = findLCA(root);
+        return res.first;
     }
 };
