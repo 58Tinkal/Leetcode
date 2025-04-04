@@ -12,40 +12,27 @@
  */
 class Solution {
 public:
-    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if (root == NULL || p == root || q == root)
+    int maxDepth(TreeNode* root) {
+        if (root == NULL)
+            return 0;
+        int l = maxDepth(root->left);
+        int r = maxDepth(root->right);
+        return max(l, r) + 1;
+    }
+    TreeNode* fun(TreeNode* root) {
+        int l = maxDepth(root->left);
+        int r = maxDepth(root->right);
+
+        if (l == r) {
             return root;
-        TreeNode* left = lowestCommonAncestor(root->left, p, q);
-        TreeNode* right = lowestCommonAncestor(root->right, p, q);
-        if (left == NULL) {
-            return right;
-        } else if (right == NULL) {
-            return left;
+        }
+
+        if (l > r) {
+            return fun(root->left);
         } else {
-            return root;
+            return fun(root->right);
         }
     }
-    TreeNode* lcaDeepestLeaves(TreeNode* root) {
-        queue<TreeNode*> q;
-        TreeNode* first = nullptr;
-        TreeNode* last = nullptr;
-        q.push(root);
-        while (!q.empty()) {
-            int s = q.size();
-            vector<TreeNode*> v;
-            for (int i = 0; i < s; i++) {
-                auto it = q.front();
-                q.pop();
-                v.push_back(it);
-                if (it->left)
-                    q.push(it->left);
-                if (it->right)
-                    q.push(it->right);
-            }
-            s = v.size();
-            first = v[0];
-            last = v[s - 1];
-        }
-        return lowestCommonAncestor(root, first, last);
-    }
+
+    TreeNode* lcaDeepestLeaves(TreeNode* root) { return fun(root); }
 };
