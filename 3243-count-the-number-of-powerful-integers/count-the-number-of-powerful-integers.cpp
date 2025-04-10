@@ -25,7 +25,7 @@ public:
             if (s[idx] < su[idx - suIdx])
                 return dp[idx][tight] = 0;
 
-            // we can fill the idx noe check for others;
+            // we can fill the idx now check for others;
             if (s[idx] == su[idx - suIdx])
                 return dp[idx][tight] = solve(idx + 1, true, l, su, s);
 
