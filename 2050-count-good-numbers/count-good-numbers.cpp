@@ -12,19 +12,7 @@ public:
         }
         return result;
     }
-    long long mulmod(long long a, long long b, long long mod) {
-        long long result = 0;
-        a = a % mod;
-
-        while (b > 0) {
-            if (b & 1)
-                result = (result + a) % mod;
-            a = (2 * a) % mod;
-            b >>= 1;
-        }
-
-        return result;
-    }
+   
     int countGoodNumbers(long long n) {
         long long ans = 0;
         if (n % 2 == 0) {
