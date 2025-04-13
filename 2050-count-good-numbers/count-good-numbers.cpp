@@ -28,15 +28,15 @@ public:
     int countGoodNumbers(long long n) {
         long long ans = 0;
         if (n % 2 == 0) {
-            ans = (ans +
-                   mulmod(modPow(5, n / 2, mod), modPow(4, n / 2, mod), mod)) %
-                  mod;
+            ans =
+                (ans + (modPow(5, n / 2, mod) * modPow(4, n / 2, mod)) % mod) %
+                mod;
         } else {
             if (n == 1) {
                 return 5;
             }
-            ans = (ans + mulmod(modPow(5, n / 2 + 1, mod),
-                                modPow(4, n / 2, mod), mod)) %
+            ans = (ans +
+                   (modPow(5, n / 2 + 1, mod) * modPow(4, n / 2, mod)) % mod) %
                   mod;
         }
         return (int)ans;
