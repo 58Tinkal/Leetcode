@@ -1,59 +1,25 @@
-#define ll long long int
-class SGTree {
-    vector<ll> seg;
-
-public:
-    SGTree(ll n) { seg.resize(4 * n + 1); }
-
-    void build(ll ind, ll low, ll high, ll idx) {
-        if (high < idx || low > idx)
-            return;
-        if (low == high) {
-            seg[ind]++;
-            return;
-        }
-
-        ll mid = low + (high - low) / 2;
-        build(2 * ind + 1, low, mid, idx);
-        build(2 * ind + 2, mid + 1, high, idx);
-        seg[ind] = (seg[2 * ind + 1] + seg[2 * ind + 2]);
-    }
-
-    ll query(ll ind, ll low, ll high, ll l, ll r) {
-        // no overlap
-        if (r < low || high < l)
-            return 0;
-
-        // complete overlap
-        if (low >= l && high <= r)
-            return seg[ind];
-
-        ll mid = low + (high - low) / 2;
-        ll left = query(2 * ind + 1, low, mid, l, r);
-        ll right = query(2 * ind + 2, mid + 1, high, l, r);
-        return (left + right);
-    }
-};
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace __gnu_pbds;
+#define ordered_set tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update>
 
 class Solution {
 public:
     long long goodTriplets(vector<int>& nums1, vector<int>& nums2) {
-        int n = nums1.size();
-        SGTree sg(n);
-        unordered_map<ll, ll> m;
+        unordered_map<int, int> mpp;
+        // Store indexes from nums1 in mpp
+        for (int i = 0; i < nums1.size(); i++) 
+            mpp[nums1[i]] = i;
+        
+        ordered_set st;
+        long long total = 0 , n = nums2.size();
+        
         for (int i = 0; i < n; i++) {
-            m[nums2[i]] = i;
+            int idx = mpp[nums2[i]];    
+            int left = st.order_of_key(idx); // elements < idx 
+            int right = (n - 1 - idx) - (st.size() - left); // elements > idx
+            total += (long long) left * right; // triplets with idx as middle
+            st.insert(idx);
         }
-        sg.build(0, 0, n - 1, m[nums1[0]]);
-        ll ans = 0;
-        for (int i = 1; i < n - 1; i++) {
-            ll k = m[nums1[i]];
-            ll left = sg.query(0, 0, n - 1, 0, k);
-            ll u_left = i - left;
-            ll right = (n - k - 1) - u_left;
-            ans += left * right;
-            sg.build(0, 0, n - 1, k);
-        }
-        return ans;
+        return total;
     }
 };
