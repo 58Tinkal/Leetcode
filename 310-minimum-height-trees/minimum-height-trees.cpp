@@ -2,10 +2,11 @@ class Solution {
 public:
     vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
         vector<int> ans;
-        if(edges.size() == 0){
-           for(int i=0;i<n;i++) ans.push_back(i);
+        if (edges.size() == 0) {
+            for (int i = 0; i < n; i++)
+                ans.push_back(i);
 
-           return ans;
+            return ans;
         }
         vector<int> in(n);
         vector<vector<int>> adj(n);
@@ -19,7 +20,6 @@ public:
         for (int i = 0; i < n; i++) {
             if (in[i] == 1) {
                 q.push(i);
-                //  in[i] = 0;
             }
         }
         while (!q.empty()) {
