@@ -4,7 +4,7 @@ public:
         string s = to_string(num);
         string maxNum = s, minNum = s;
 
-        // Maximize: Replace first non-9 digit with 9
+
         char toReplaceMax = 0;
         for (char c : s) {
             if (c != '9') {
@@ -18,7 +18,6 @@ public:
             }
         }
 
-        // Minimize:
         char toReplaceMin = 0;
         if (s[0] != '1') {
             toReplaceMin = s[0];
