@@ -1,12 +1,19 @@
 class Solution {
 public:
     int maximumDifference(vector<int>& nums) {
-        int ans = -1;
-        for (int i = 0; i < nums.size(); i++) {
-            for (int j = i + 1; j < nums.size(); j++) {
-               if(nums[i] < nums[j]) ans = max(ans, nums[j] - nums[i]);
+        int diff = -1;
+        int mn = nums[0];
+
+        for(int i=1;i<nums.size();i++){
+            if(nums[i] > mn){
+                // check profit at every possible big day
+                diff = max({nums[i] - mn, diff});
             }
+
+            // check if we can be able to buy on lesser amount day
+            if(nums[i] < mn){mn = nums[i];}
         }
-        return ans;
+
+        return diff;
     }
 };
