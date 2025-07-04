@@ -1,14 +1,13 @@
 class Solution {
 public:
     char kthCharacter(int k) {
-        string sb = "a";
-        while (sb.length() < k) {
-            int size = sb.length();
-            for (int i = 0; i < size; ++i) {
-                char nextChar = 'a' + ((sb[i] - 'a' + 1) % 26);
-                sb += nextChar;
-            }
+        long long op = 0;
+        long long val = k;
+        while (val > 1) {
+            long long jump = ceil(log2(val));
+            val -= pow(2, jump - 1);
+            op++;
         }
-        return sb[k - 1];
+        return char('a' + (op) % 26);
     }
 };
