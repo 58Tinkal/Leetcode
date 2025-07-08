@@ -5,7 +5,7 @@ public:
     int n, K;
     vector<int> a;
     int indexFirstGreater(const vector<int>& a, int x) {
-        return int(upper_bound(a.begin(), a.end(), x) - a.begin()); 
+        return int(upper_bound(a.begin(), a.end(), x) - a.begin());
     }
 
     int solve(int idx, int k) {
@@ -15,7 +15,7 @@ public:
         if (dp[idx][k] != -1)
             return dp[idx][k];
 
-        int j = indexFirstGreater(a, e[idx][1]); 
+        int j = indexFirstGreater(a, e[idx][1]);
         int take = e[idx][2] + solve(j, k - 1);
         int nottake = solve(idx + 1, k);
 
@@ -27,7 +27,7 @@ public:
         e = events;
         K = k;
 
-        sort(e.begin(), e.end()); // sort by start time (first column)
+        sort(e.begin(), e.end());
         a.clear();
         for (auto& it : e)
             a.push_back(it[0]);
