@@ -35,13 +35,6 @@ public:
 
      
             int best_after_move = flag ? merged : merged - dur;
-
-            // if (i == 0) {
-            //     best_after_move = max(best_after_move, right_gap);
-            // } else if (i == n - 1) {
-            //     best_after_move = max(best_after_move, left_gap);
-            // }
-
             ans = max(ans, best_after_move);
         }
 
