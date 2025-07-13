@@ -1,16 +1,16 @@
 class Solution {
 public:
     int matchPlayersAndTrainers(vector<int>& p, vector<int>& t) {
-        multiset<int> s(t.begin(), t.end());
         sort(p.begin(), p.end());
-        int ans = 0;
-        for (int i = 0; i < p.size(); i++) {
-            auto it = s.lower_bound(p[i]);
-            if (it == s.end()) {
-                return ans;
-            } else {
+        sort(t.begin(), t.end());
+        int i = 0, j = 0, ans = 0;
+        while (i < p.size() && j < t.size()) {
+            if (t[j] >= p[i]) {
                 ans++;
-                s.erase(it);
+                i++;
+                j++;
+            } else {
+                j++;
             }
         }
         return ans;
