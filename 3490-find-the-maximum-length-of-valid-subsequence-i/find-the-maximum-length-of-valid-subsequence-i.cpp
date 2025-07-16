@@ -11,18 +11,16 @@ public:
         }
         int ans = max(o, e);
         map<int, int> m;
-        vector<int> dp(n, 1);
-        m[nums[0] % 2] = dp[0];
+        m[nums[0] % 2] = 1;
         for (int i = 1; i < n; i++) {
+            int  p = 1;
             if (m.find(1 - nums[i] % 2) != m.end()) {
-                dp[i] += m[1 - nums[i] % 2];
-                m[nums[i] % 2] = dp[i];
+                p += m[1 - nums[i] % 2];
+                m[nums[i] % 2] = p;
             } else {
-                m[nums[i] % 2] = dp[i];
+                m[nums[i] % 2] = p;
             }
-        }
-        for (int i = 0; i < n; i++) {
-            ans = max(ans, dp[i]);
+            ans = max(ans, p);
         }
         return ans;
     }
