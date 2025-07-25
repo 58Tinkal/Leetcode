@@ -6,10 +6,9 @@ public:
         priority_queue<pair<long long, int>, vector<pair<long long, int>>, greater<>> pq;
         vector<long long> dist(n, LLONG_MAX);
         
-        if (!online[0]) return false;
         
         dist[0] = 0;
-        pq.push({0, 0}); // {cost, node}
+        pq.push({0, 0});
         
         while (!pq.empty()) {
             auto [cost, node] = pq.top();
