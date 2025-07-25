@@ -6,7 +6,7 @@ public:
 
     for (int num : nums) {
         if(num > 0){
-            if (seen.find(num) == seen.end()) {
+            if (seen.find(num) == seen.end()) { // If not seen before
             seen.insert(num);
             a.push_back(num);
         }
