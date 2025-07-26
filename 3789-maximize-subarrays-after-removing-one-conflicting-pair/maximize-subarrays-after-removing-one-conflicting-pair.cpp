@@ -11,13 +11,11 @@ public:
             m[b].push_back(a);
         }
 
-
- int firstmaxConflict = 0;
-            int secondmaxConflict = 0;
+        int firstmaxConflict = 0;
+        int secondmaxConflict = 0;
         vector<long long> extra(n + 1, 0);
 
         for (int i = 1; i <= n; i++) {
-           
 
             for (auto& it : m[i]) {
                 if (it >= firstmaxConflict) {
