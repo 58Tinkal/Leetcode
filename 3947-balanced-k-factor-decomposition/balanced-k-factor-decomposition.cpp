@@ -8,11 +8,10 @@ private:
     void solve(int n, int k, int last, vector<int>& cur) {
 
         if (k == 0) {
-            vector<int> temp = cur;
-            int x = temp[temp.size() - 1] - temp[0];
+            int x = cur[cur.size() - 1] - cur[0];
             if (x <= val) {
                 x = val;
-                ans = temp;
+                ans = cur;
             }
             return;
         }
