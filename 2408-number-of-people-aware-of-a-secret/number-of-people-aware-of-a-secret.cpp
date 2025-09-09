@@ -1,32 +1,32 @@
 class Solution {
 public:
     int MOD = 1e9 + 7;
-    int solve(int days, int delay, int forget, vector<int>& dp) {
-        if (days == 1) {
-            return 1;
-        }
 
-        if (dp[days] != -1) {
-            return dp[days];
-        }
-
-        int ans = 0;
-
-        for (int i = days - forget + 1; i <= days - delay; i++) {
-            if (i > 0) {
-                ans = (ans + solve(i, delay, forget, dp)) % MOD;;
-            }
-        }
-        return dp[days] = ans;
-    }
     int peopleAwareOfSecret(int n, int delay, int forget) {
-        vector<int> dp(n + 1, -1);
-        int ans = 0;
-        for (int i = n - forget + 1; i <= n; i++) {
-            if (i > 0) {
-                ans = (ans + solve(i, delay, forget, dp)) % MOD;
+        vector<int> dp(n + 1, 0);
+
+        dp[1] = 1;
+        
+        int count = 0; 
+
+        for (int day = 2; day <= n; day++) {
+            
+            if (day - delay > 0) {
+                count = (count + dp[day - delay]) % MOD;
+            }
+            if (day - forget > 0) {
+                count = (count - dp[day - forget] + MOD) % MOD;
+            }
+            dp[day] = count; 
+        }
+
+        int result = 0;
+        for (int day = n - forget + 1; day <= n; day++) {
+            if (day > 0) {
+                result = (result + dp[day]) % MOD;
             }
         }
-        return ans;
+
+        return result;
     }
 };
