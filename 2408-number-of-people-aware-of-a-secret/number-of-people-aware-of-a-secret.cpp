@@ -1,21 +1,31 @@
 class Solution {
 public:
-    const int MOD = 1e9 + 7;
-    int peopleAwareOfSecret(int n, int delay, int forget) {
-        vector<long long> dp(n + 1, 0);
-        dp[1] = 1;  
-
-        for (int i = 2; i <= n; i++) {
-            int start = max(1, i - forget + 1);
-            int end = i - delay;
-            for (int j = start; j <= end; j++) {
-                dp[i] = (dp[i] + dp[j]) % MOD;
-            }
+    int MOD = 1e9 + 7;
+    int solve(int days, int delay, int forget, vector<int>& dp) {
+        if (days == 1) {
+            return 1;
         }
 
-        long long ans = 0;
+        if (dp[days] != -1) {
+            return dp[days];
+        }
+
+        int ans = 0;
+
+        for (int i = days - forget + 1; i <= days - delay; i++) {
+            if (i > 0) {
+                ans = (ans + solve(i, delay, forget, dp)) % MOD;;
+            }
+        }
+        return dp[days] = ans;
+    }
+    int peopleAwareOfSecret(int n, int delay, int forget) {
+        vector<int> dp(n + 1, -1);
+        int ans = 0;
         for (int i = n - forget + 1; i <= n; i++) {
-            if (i >= 1) ans = (ans + dp[i]) % MOD;
+            if (i > 0) {
+                ans = (ans + solve(i, delay, forget, dp)) % MOD;
+            }
         }
         return ans;
     }
