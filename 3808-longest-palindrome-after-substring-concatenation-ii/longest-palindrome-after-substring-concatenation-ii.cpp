@@ -1,6 +1,5 @@
 class Solution {
 private:
-    int dp[1001][1001];
     int dp2[1001][1001][2];
     vector<int> st, en;
 
@@ -100,36 +99,12 @@ private:
         return dp2[i][j][start] = ans;
     }
 
-private:
-    int lcs(string& s) {
-        int ans = 1;
-        string t = s;
-        reverse(t.begin(), t.end());
-
-        for (int i = 1; i <= s.size(); i++) {
-            for (int j = 1; j <= s.size(); j++) {
-                if (s[i - 1] == t[j - 1]) {
-                    dp[i][j] = 1 + dp[i - 1][j - 1];
-                    ans = max(ans, dp[i][j]);
-                } else {
-                    dp[i][j] = 0;
-                }
-            }
-        }
-        return ans;
-    }
-
 public:
     int longestPalindrome(string s, string t) {
         int end = t.size() - 1;
-        memset(dp, 0, sizeof(dp));
-        int ans = lcs(s);
-        memset(dp, 0, sizeof(dp));
-        ans = max(ans, lcs(t));
         st = longestPalStartLengths(s);
         en = longestPalEndLengths(t);
         memset(dp2, -1, sizeof(dp2));
-        ans = max(ans, solve(0, end, 0, s, t));
-        return ans;
+        return solve(0, end, 0, s, t);
     }
 };
