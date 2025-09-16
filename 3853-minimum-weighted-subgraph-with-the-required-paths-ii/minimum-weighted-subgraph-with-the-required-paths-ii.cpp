@@ -78,14 +78,8 @@ private:
 public:
     vector<int> minimumWeight(vector<vector<int>>& edges,
                               vector<vector<int>>& queries) {
-        int E = edges.size();
-        // ✅ fix: number of nodes should be edges.size() + 1 only if
-        // nodes are 0..E, but safer is to find max node index first
-        int n = 0;
-        for (auto& it : edges) {
-            n = max(n, max(it[0], it[1]));
-        }
-        n++; // nodes are 0..n-1
+
+        int n = edges.size() + 1;
 
         vector<vector<pair<int, int>>> adj(n);
         for (auto it : edges) {
@@ -97,7 +91,7 @@ public:
         dfsDist(0, -1, adj, dist, 0);
 
         vector<int> level(n, 0);
-        // ✅ fix: initialize dp with -1, not 0 (0 is a valid node index)
+     
         vector<vector<int>> dp(n, vector<int>(17, -1));
         binary_lifting(0, -1, adj, dp, level);
 
