@@ -1,3 +1,6 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 class Solution {
 private:
     bool areCoprime(long long a, long long b) { 
@@ -15,13 +18,26 @@ public:
         int n = nums.size();
 
         for (int i = 1; i < n; i++) {
+         
+            if (areCoprime(nums[i], st.top())) {
+                st.push(nums[i]);
+                continue;
+            }
+
             long long it = nums[i];
 
-            while (!st.empty() && !areCoprime(it, st.top())) {
+            while (!areCoprime(it, st.top())) {
                 it = lcm(it, st.top());
                 st.pop();
+                if (st.empty()) {
+                    st.push(it);
+                    break;
+                }
+                if (areCoprime(it, st.top())) {
+                    st.push(it);
+                    break;
+                }
             }
-            st.push(it);
         }
 
         vector<int> ans;
