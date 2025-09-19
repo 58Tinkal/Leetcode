@@ -1,69 +1,46 @@
-
-
 class Spreadsheet {
 private:
-    int arr[26][1005]; 
-
-public:
-    Spreadsheet(int rows) { 
-        for (int i = 0; i < 26; i++) 
-            for (int j = 0; j < rows; j++) 
-                arr[i][j] = 0; 
-    }
-
-    void setCell(string cell, int value) {
-        int r = cell[0] - 'A';  
-        int c = stoi(cell.substr(1)) - 1;
-        arr[r][c] = value;
-    }
-
-    void resetCell(string cell) {
-        int r = cell[0] - 'A';
-        int c = stoi(cell.substr(1)) - 1;
-        arr[r][c] = 0;
-    }
-
-    int getValue(string f) {
-        int x = 0, y = 0;
-        int i = 1;
-        string s = "";
-
-        while (i < f.size() && f[i] != '+') {
-            s += f[i];
-            i++;
-        }
-
+    int fun(string& s) {
+        int x = 0;
         if (s[0] >= 'A' && s[0] <= 'Z') {
-            int r = s[0] - 'A';
-            int c = stoi(s.substr(1)) - 1;
-            x = arr[r][c];
+            int col = s[0] - 'A';
+            int row = stoi(s.substr(1)) - 1;
+            x = grid[row][col];
         } else {
             x = stoi(s);
         }
+        return x;
+    }
 
-        i++; 
-        s = "";
-        while (i < f.size()) {
-            s += f[i];
-            i++;
-        }
+public:
+    vector<vector<int>> grid;
+    Spreadsheet(int rows) { grid.assign(rows, vector<int>(26, 0)); }
 
-        if (s[0] >= 'A' && s[0] <= 'Z') {
-            int r = s[0] - 'A';
-            int c = stoi(s.substr(1)) - 1;
-            y = arr[r][c];
-        } else {
-            y = stoi(s);
-        }
+    void setCell(string cell, int value) {
+        int col = cell[0] - 'A';
+        int row = stoi(cell.substr(1)) - 1;
+        grid[row][col] = value;
+    }
 
-        return x + y;
+    void resetCell(string cell) {
+        int col = cell[0] - 'A';
+        int row = stoi(cell.substr(1)) - 1;
+        grid[row][col] = 0;
+    }
+
+    int getValue(string formula) {
+        string s = formula.substr(1);
+        int plusIdx = s.find('+');
+        string left = s.substr(0, plusIdx);
+        string right = s.substr(plusIdx + 1);
+        return fun(left) + fun(right);
     }
 };
 
 /**
- * Example usage:
- * Spreadsheet* obj = new Spreadsheet(100);
- * obj->setCell("A1", 5);
- * obj->setCell("B2", 10);
- * cout << obj->getValue("A1+B2"); // Should return 15
+ * Your Spreadsheet object will be instantiated and called as such:
+ * Spreadsheet* obj = new Spreadsheet(rows);
+ * obj->setCell(cell,value);
+ * obj->resetCell(cell);
+ * int param_3 = obj->getValue(formula);
  */
