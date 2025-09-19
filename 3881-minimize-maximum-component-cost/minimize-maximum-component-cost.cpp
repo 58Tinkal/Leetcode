@@ -49,8 +49,6 @@ public:
         return {x, maxi};
     }
     int minCost(int n, vector<vector<int>>& edges, int k) {
-        // vector<pair<int,pair<int>>>graph;
-        // int n = edges.size();
         if (k >= n) return 0;               
         if (edges.empty()) return 0;
 
@@ -78,6 +76,6 @@ public:
                 l = mid + 1;
             }
         }
-        return (ans == INT_MAX ? -1 : ans);
+        return ans;
     }
 };
