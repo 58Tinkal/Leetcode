@@ -1,17 +1,18 @@
 class Solution {
 public:
     int maxFrequencyElements(vector<int>& nums) {
-        vector<int> freq(101, 0); 
-        for (int x : nums)
-            freq[x]++;
-
-        int maxFreq =
-            *max_element(freq.begin(), freq.end()); 
-        int total = 0;
-        for (int f : freq) {
-            if (f == maxFreq)
-                total += f; 
+        vector<int> freq(101, 0);
+        for (auto it : nums) {
+            freq[it]++;
         }
-        return total;
+        sort(freq.begin(), freq.end()); 
+        int count = 0, x = freq[100];   
+        for (int i = 100; i >= 0; i--) {
+            if (freq[i] == x) {
+                count += freq[i];
+            } else
+                break;
+        }
+        return count;
     }
 };
