@@ -13,9 +13,9 @@ public:
                     double area = points[i][0] * (points[j][1] - points[k][1]) +
                                   points[j][0] * (points[k][1] - points[i][1]) +
                                   points[k][0] * (points[i][1] - points[j][1]);
-                                  if(area < 1e-5) continue;
-                                  ans = max(ans, fabs(area)/2.0);
-
+                    if (area < 1e-5)
+                        continue;
+                    ans = max(ans, fabs(area) / 2.0);
                 }
             }
         }
