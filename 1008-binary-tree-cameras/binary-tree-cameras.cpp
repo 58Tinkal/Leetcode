@@ -13,24 +13,29 @@
 class Solution {
 public:
     int count = 0;
-    void solve(TreeNode* node, unordered_set<TreeNode*>& s, TreeNode* parent) {
-        if (node == nullptr)
-            return;
-        solve(node->left, s, node);
-        solve(node->right, s, node);
-        if (parent == nullptr && s.find(node) == s.end() ||
-            s.find(node->left) == s.end() || s.find(node->right) == s.end()) {
-            count++;
-            s.insert(node);
-            s.insert(parent);
-            s.insert(node->left);
-            s.insert(node->right);
+    int solve(TreeNode* node) {
+
+        if (node == NULL) {
+            return 1;
         }
+
+        int l = solve(node->left);
+        int r = solve(node->right);
+
+        if (l == 0 || r == 0) {
+            count++;
+            return 2; // camera
+        }
+        if (l == 2 || r == 2) {
+            return 1; // beign watched but no camera
+        }
+        return 0;
     }
     int minCameraCover(TreeNode* root) {
-        unordered_set<TreeNode*> s;
-        s.insert(nullptr);
-        solve(root, s, nullptr);
+        if (solve(root) == 0) {
+            count++;
+        }
+        
         return count;
     }
 };
