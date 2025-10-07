@@ -16,8 +16,6 @@ public:
             pq.pop();
             int t = it.first;
             int node = it.second;
-          // if (t > time[node])
-            //    continue;
 
             for (auto it : adj[node]) {
                 int neg = it.first;
