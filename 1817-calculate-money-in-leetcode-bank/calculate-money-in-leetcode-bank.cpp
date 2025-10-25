@@ -1,17 +1,10 @@
 class Solution {
 public:
     int totalMoney(int n) {
-        int ans = 0;
-        int prevMon = 1;
-        while (n > 0) {
-            int x = prevMon;
-            for (int i = 0; i < min(7, n); i++) {
-                ans += x;
-                x++;
-            }
-            prevMon++;
-            n -= 7;
-        }
+        int weeks = n / 7;
+        int days = n % 7 ;
+        int ans = weeks * (2 * 28 + (weeks - 1) * 7) / 2;
+        ans += days * weeks + days * (days + 1) / 2;
         return ans;
     }
 };
