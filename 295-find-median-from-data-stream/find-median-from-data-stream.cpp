@@ -1,6 +1,6 @@
 class MedianFinder {
 private:
-    priority_queue<int> mx;
+    priority_queue<int> mx; // left part of array
     priority_queue<int, vector<int>, greater<int>> mn;
 
 public:
@@ -16,7 +16,7 @@ public:
         }
 
         int x = mx.top();
-        int y = m > 0 ? mn.top() : INT_MAX; // safe fallback if mn is empty
+        int y = m > 0 ? mn.top() : INT_MAX;
 
         if (num <= x) {
             if (n - 1 == m) {
