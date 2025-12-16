@@ -1,45 +1,51 @@
 class Solution {
 public:
-  int largestRectangleArea(vector<int>& h) {
-        int n = h.size();
+    int solve(vector<int>& a) {
+        stack<int> s;
+        int n = a.size();
         int ans = 0;
-        stack<int> st;
-        
-        for(int i = 0; i < n; i++) {
-            while(!st.empty() && h[st.top()] > h[i]) {
-                int el = st.top();
-                st.pop();
-                int nse = i; 
-                int pse = (st.empty()) ? -1 : st.top(); 
-                ans = max(ans, h[el] * (nse - pse - 1));
+
+        for (int i = 0; i < n; i++) {
+            while (!s.empty() && a[s.top()] > a[i]) {
+                int el = s.top();
+                s.pop();
+                int nse = i;
+                int pse = s.empty() ? -1 : s.top();
+                ans = max(ans, a[el] * (nse - pse - 1));
             }
-            st.push(i);
+            s.push(i);
         }
-        
-     
-        while (!st.empty()) {
-            int el = st.top();
-            st.pop();
-            int nse = n; 
-            int pse = (st.empty()) ? -1 : st.top();
-            ans = max(ans, h[el] * (nse - pse - 1));
+
+        while (!s.empty()) {
+            int el = s.top();
+            s.pop();
+            int nse = n;
+            int pse = s.empty() ? -1 : s.top();
+            ans = max(ans, a[el] * (nse - pse - 1));
         }
 
         return ans;
     }
+
     int maximalRectangle(vector<vector<char>>& matrix) {
-        int n=matrix.size();
-        int m=matrix[0].size();
-        int maxArea=0;
-        vector<int>heights(m,0);
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(matrix[i][j]=='1') heights[j]++;
-                else heights[j]=0;
+        if (matrix.empty()) return 0;
+
+        int n = matrix.size();
+        int m = matrix[0].size();
+        vector<int> a(m, 0);
+
+        int ans = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (matrix[i][j] == '1')
+                    a[j]++;
+                else
+                    a[j] = 0;
             }
-            int area=largestRectangleArea(heights);
-            maxArea=max(maxArea,area);
+            ans = max(ans, solve(a));
         }
-        return maxArea;
+
+        return ans;
     }
 };
