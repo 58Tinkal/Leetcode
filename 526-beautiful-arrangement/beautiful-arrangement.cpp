@@ -1,25 +1,23 @@
 class Solution {
 public:
-    void solve(int idx,int & ans, vector<int>a){
-        if(idx == a.size()){
+    int ans = 0;
+
+    void solve(int pos, int n, int mask) {
+        if (pos > n) {
             ans++;
             return;
         }
-        for(int i=idx;i<a.size();i++){
-            swap(a[idx],a[i]);
-            if(a[idx]%(idx+1)==0 || (idx+1)%a[idx] == 0){
-                solve(idx+1,ans,a);
+
+        for (int i = 1; i <= n; i++) {
+            if (!(mask & (1 << i)) && (i % pos == 0 || pos % i == 0)) {
+
+                solve(pos + 1, n, mask | (1 << i));
             }
-           // swap(a[idx],a[i]);
         }
     }
+
     int countArrangement(int n) {
-        int ans = 0;
-        vector<int>a;
-        for(int i=1;i<=n;i++){
-            a.push_back(i);
-        }
-        solve(0,ans,a);
+        solve(1, n, 0);
         return ans;
     }
 };
