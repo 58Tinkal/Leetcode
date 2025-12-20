@@ -1,23 +1,27 @@
 class Solution {
 public:
     int ans = 0;
+    vector<bool> vis;
 
-    void solve(int pos, int n, int mask) {
+    void solve(int pos, int n) {
         if (pos > n) {
             ans++;
             return;
         }
 
         for (int i = 1; i <= n; i++) {
-            if (!(mask & (1 << i)) && (i % pos == 0 || pos % i == 0)) {
+            if (!vis[i] && (i % pos == 0 || pos % i == 0)) {
 
-                solve(pos + 1, n, mask | (1 << i));
+                vis[i] = true;
+                solve(pos + 1, n);
+                vis[i] = false;
             }
         }
     }
 
     int countArrangement(int n) {
-        solve(1, n, 0);
+        vis.assign(n + 1, false);
+        solve(1, n);
         return ans;
     }
 };
